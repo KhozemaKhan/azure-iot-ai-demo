@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "australiaeast"
+    },
+    "prefix": {
+      "value": "learn-ai"
+    },
+    "iotHubName": {
+      "value": "learn-ai-iothub"
+    },
+    "storageAccountName": {
+      "value": "stlearnai"
+    },
+    "searchServiceName": {
+      "value": "learn-ai-aisearch"
+    },
+    "consumerGroupName": {
+      "value": "telemetry-decoder-fn"
+    }
+  }
+}

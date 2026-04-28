@@ -1,0 +1,23 @@
+{
+  "@odata.context": "https://<SEARCH_SERVICE_NAME>.search.windows.net/$metadata#indexers/$entity",
+  "name": "telemetry-decoded-indexer",
+  "description": "Indexes JSON Lines blobs from the telemetry-decoded container. Each line is one clean telemetry document with numeric temperature/humidity fields.",
+  "dataSourceName": "telemetry-decoded-datasource",
+  "targetIndexName": "iot-telemetry-index",
+  "schedule": {
+    "interval": "PT5M",
+    "startTime": "2000-01-01T00:00:00Z"
+  },
+  "parameters": {
+    "batchSize": 1000,
+    "maxFailedItems": 10,
+    "maxFailedItemsPerBatch": 10,
+    "configuration": {
+      "dataToExtract": "contentAndMetadata",
+      "parsingMode": "jsonLines"
+    }
+  },
+  "fieldMappings": [],
+  "outputFieldMappings": [],
+  "disabled": false
+}

@@ -1,0 +1,17 @@
+{
+  "@odata.context": "https://<SEARCH_SERVICE_NAME>.search.windows.net/$metadata#datasources/$entity",
+  "name": "telemetry-decoded-datasource",
+  "description": "Blob storage datasource pointing at the telemetry-decoded container that holds clean JSON Lines documents produced by the EventHubDecoder Azure Function.",
+  "type": "azureblob",
+  "credentials": {
+    "connectionString": "DefaultEndpointsProtocol=https;AccountName=<STORAGE_ACCOUNT_NAME>;AccountKey=<STORAGE_ACCOUNT_KEY>;EndpointSuffix=core.windows.net"
+  },
+  "container": {
+    "name": "telemetry-decoded",
+    "query": null
+  },
+  "dataChangeDetectionPolicy": {
+    "@odata.type": "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
+    "highWaterMarkColumnName": "metadata_storage_last_modified"
+  }
+}
