@@ -1,0 +1,15 @@
+{
+  "name": "telemetry-decoder",
+  "version": "1.0.0",
+  "description": "Azure Function that decodes Base64-encoded IoT Hub blob records and writes clean JSON for Azure AI Search indexing",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

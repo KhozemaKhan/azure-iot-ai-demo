@@ -1,0 +1,50 @@
+{
+  "name": "telemetry-base64-decode-skillset",
+  "description": "Decodes the Base64-encoded Body field from IoT Hub routed blobs and projects telemetry fields",
+  "skills": [
+    {
+      "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
+      "name": "base64-decode-body",
+      "description": "Decodes the Base64 Body field from IoT Hub blob records into structured telemetry fields",
+      "uri": "https://YOUR_FUNCTION_APP_NAME.azurewebsites.net/api/DecodeBase64Body?code=YOUR_FUNCTION_KEY",
+      "httpMethod": "POST",
+      "timeout": "PT30S",
+      "batchSize": 100,
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "body",
+          "source": "/document/Body"
+        },
+        {
+          "name": "enqueuedTimeUtc",
+          "source": "/document/EnqueuedTimeUtc"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "messageId",
+          "targetName": "messageId"
+        },
+        {
+          "name": "deviceId",
+          "targetName": "deviceId"
+        },
+        {
+          "name": "temperature",
+          "targetName": "temperature"
+        },
+        {
+          "name": "humidity",
+          "targetName": "humidity"
+        },
+        {
+          "name": "timestamp",
+          "targetName": "timestamp"
+        }
+      ]
+    }
+  ],
+  "knowledgeStore": null,
+  "encryptionKey": null
+}
