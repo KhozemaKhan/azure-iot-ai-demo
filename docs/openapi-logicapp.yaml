@@ -1,0 +1,121 @@
+openapi: 3.0.3
+info:
+  title: Temperature Alert — Logic App Action
+  version: "1.0.0"
+  description: >
+    OpenAPI 3.0.3 schema for the Azure Logic App HTTP-trigger action used by the
+    Azure AI Foundry Agent to send temperature alerts.
+
+    The request body matches the Raspberry Pi Web Simulator payload
+    (messageId, deviceId, temperature, humidity) plus the enqueuedTime field
+    that Azure IoT Hub appends when routing messages to Blob Storage.
+
+    ## Field Mapping
+
+    | Field         | Type    | Source                              |
+    |---------------|---------|-------------------------------------|
+    | messageId     | integer | Simulator — sequential counter      |
+    | deviceId      | string  | Simulator — "Raspberry Pi Web Client" |
+    | temperature   | number  | Simulator — Celsius                 |
+    | humidity      | number  | Simulator — relative humidity %     |
+    | enqueuedTime  | string  | IoT Hub — appended on message route |
+
+    ## Authentication
+
+    The Logic App HTTP trigger is secured with a Shared Access Signature (SAS).
+    The `sig` query-string parameter **must** be included in every request URL.
+    See docs/agent-tool-configuration.md for setup instructions.
+
+servers:
+  - url: "https://prod-xx.eastus.logic.azure.com:443/workflows/{workflowId}/triggers/manual/paths/invoke"
+    description: >
+      Replace {workflowId} with your Logic App workflow ID, and append the
+      full query string copied from the Logic App designer
+      (?api-version=2016-10-01&sp=…&sv=1.0&sig=<YOUR_SIG>).
+    variables:
+      workflowId:
+        default: "replace-with-your-workflow-id"
+        description: Logic App workflow resource ID segment
+
+paths:
+  /:
+    post:
+      operationId: triggerTemperatureAlert
+      summary: Trigger a temperature alert email via the Logic App
+      description: >
+        Invoke this action when the AI agent detects that a device's temperature
+        has exceeded 30 °C. The Logic App evaluates the condition and sends an
+        email alert if temperature > 30.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TelemetryAlert"
+            example:
+              messageId: 42
+              deviceId: "Raspberry Pi Web Client"
+              temperature: 35.5
+              humidity: 60.1
+              enqueuedTime: "2026-04-28T10:30:00.000Z"
+      responses:
+        "200":
+          description: Logic App accepted the request and the run was triggered.
+        "202":
+          description: Logic App accepted the request asynchronously.
+        "400":
+          description: Bad request — invalid or missing required fields.
+        "401":
+          description: Unauthorized — missing or invalid `sig` query parameter.
+
+components:
+  schemas:
+    TelemetryAlert:
+      type: object
+      description: >
+        Telemetry payload forwarded from the IoT device via AI Search to the
+        Logic App. All fields except humidity and enqueuedTime are required
+        for the alert email to be meaningful.
+      required:
+        - deviceId
+        - temperature
+        - enqueuedTime
+      properties:
+        messageId:
+          type: integer
+          description: >
+            Sequential message counter sent by the Raspberry Pi Web Simulator.
+            Matches the `messageId` field in the simulator JSON payload.
+          example: 42
+        deviceId:
+          type: string
+          description: >
+            Human-readable device identifier sent by the simulator.
+            Matches the `deviceId` field in the simulator JSON payload.
+            Default value from the simulator: "Raspberry Pi Web Client".
+          example: "Raspberry Pi Web Client"
+        temperature:
+          type: number
+          format: double
+          description: >
+            Ambient temperature in Celsius reported by the simulator sensor.
+            Matches the `temperature` field in the simulator JSON payload.
+            The Logic App condition fires when this value exceeds 30 °C.
+          example: 35.5
+        humidity:
+          type: number
+          format: double
+          description: >
+            Relative humidity percentage reported by the simulator sensor.
+            Matches the `humidity` field in the simulator JSON payload.
+          example: 60.1
+        enqueuedTime:
+          type: string
+          format: date-time
+          description: >
+            ISO-8601 UTC timestamp appended by Azure IoT Hub when it routes
+            the message to Blob Storage. This field is NOT sent by the simulator
+            itself — it is added during IoT Hub message routing and stored in
+            the blob alongside the simulator fields. It is then indexed by
+            Azure AI Search and passed through to the alert action.
+          example: "2026-04-28T10:30:00.000Z"
