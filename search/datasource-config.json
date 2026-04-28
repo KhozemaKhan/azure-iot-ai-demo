@@ -1,0 +1,15 @@
+{
+  "name": "telemetry-datasource",
+  "type": "azureblob",
+  "credentials": {
+    "connectionString": "__STORAGE_CONNECTION_STRING__"
+  },
+  "container": {
+    "name": "telemetry-decoded",
+    "query": ""
+  },
+  "dataChangeDetectionPolicy": {
+    "@odata.type": "#Microsoft.Azure.Search.HighWaterMarkChangeDetectionPolicy",
+    "highWaterMarkColumnName": "metadata_storage_last_modified"
+  }
+}

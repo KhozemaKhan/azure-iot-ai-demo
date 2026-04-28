@@ -1,0 +1,17 @@
+{
+  "name": "telemetry-decoder",
+  "version": "1.0.0",
+  "description": "Azure Function that decodes IoT Hub blob-routing envelopes and writes clean JSON to telemetry-decoded.",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "test": "node scripts/test-decode-local.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.0",
+    "@azure/storage-blob": "^12.24.0"
+  }
+}
