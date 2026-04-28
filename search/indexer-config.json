@@ -1,0 +1,42 @@
+{
+  "name": "telemetry-indexer",
+  "dataSourceName": "telemetry-datasource",
+  "targetIndexName": "iot-telemetry-index",
+  "schedule": {
+    "interval": "PT5M",
+    "startTime": "2000-01-01T00:00:00Z"
+  },
+  "parameters": {
+    "batchSize": 1000,
+    "configuration": {
+      "parsingMode": "jsonLines",
+      "failOnUnsupportedContentType": false
+    }
+  },
+  "fieldMappings": [
+    {
+      "sourceFieldName": "id",
+      "targetFieldName": "id"
+    },
+    {
+      "sourceFieldName": "messageId",
+      "targetFieldName": "messageId"
+    },
+    {
+      "sourceFieldName": "deviceId",
+      "targetFieldName": "deviceId"
+    },
+    {
+      "sourceFieldName": "temperature",
+      "targetFieldName": "temperature"
+    },
+    {
+      "sourceFieldName": "humidity",
+      "targetFieldName": "humidity"
+    },
+    {
+      "sourceFieldName": "enqueuedTimeUtc",
+      "targetFieldName": "enqueuedTimeUtc"
+    }
+  ]
+}
