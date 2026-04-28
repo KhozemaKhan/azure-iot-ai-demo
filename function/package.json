@@ -1,0 +1,20 @@
+{
+  "name": "telemetry-decoder",
+  "version": "1.0.0",
+  "description": "Azure Function: reads IoT telemetry from IoT Hub Event Hub endpoint, decodes and writes clean JSON to telemetry-decoded blob container for AI Search indexing.",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "test": "jest --forceExit"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.5.0",
+    "@azure/storage-blob": "^12.24.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

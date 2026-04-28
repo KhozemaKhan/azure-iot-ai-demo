@@ -1,0 +1,18 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+
+# Azure Functions local settings (contains secrets)
+function/local.settings.json
+
+# Bicep parameters file (may contain resource names – keep example, ignore real one)
+infra/main.parameters.json
+
+# Build/dist artifacts
+dist/
+.funcignore
+
+# OS / editor
+.DS_Store
+*.swp
+.env
