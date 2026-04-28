@@ -1,0 +1,24 @@
+{
+  "name": "iot-telemetry-indexer",
+  "dataSourceName": "iot-telemetry-datasource",
+  "targetIndexName": "iot-telemetry-index",
+  "schedule": {
+    "interval": "PT5M"
+  },
+  "parameters": {
+    "configuration": {
+      "parsingMode": "jsonLines",
+      "dataToExtract": "contentAndMetadata"
+    }
+  },
+  "fieldMappings": [
+    {
+      "sourceFieldName": "metadata_storage_path",
+      "targetFieldName": "id",
+      "mappingFunction": {
+        "name": "base64Encode"
+      }
+    }
+  ],
+  "outputFieldMappings": []
+}

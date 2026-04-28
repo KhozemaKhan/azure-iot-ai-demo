@@ -1,0 +1,11 @@
+{
+  "_comment": "Replace the placeholder below with your actual Storage Account connection string ONLY at deploy time. Never commit real credentials. Use setup-search.sh which substitutes this value at runtime without writing credentials to disk.",
+  "name": "iot-telemetry-datasource",
+  "type": "azureblob",
+  "credentials": {
+    "connectionString": "<YOUR_STORAGE_ACCOUNT_CONNECTION_STRING>"
+  },
+  "container": {
+    "name": "telemetry-decoded"
+  }
+}

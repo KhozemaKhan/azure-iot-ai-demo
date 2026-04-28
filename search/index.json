@@ -1,0 +1,59 @@
+{
+  "name": "iot-telemetry-index",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Edm.String",
+      "key": true,
+      "searchable": false,
+      "filterable": false,
+      "sortable": false,
+      "facetable": false
+    },
+    {
+      "name": "messageId",
+      "type": "Edm.Int32",
+      "key": false,
+      "searchable": false,
+      "filterable": true,
+      "sortable": true,
+      "facetable": false
+    },
+    {
+      "name": "deviceId",
+      "type": "Edm.String",
+      "key": false,
+      "searchable": true,
+      "filterable": true,
+      "sortable": true,
+      "facetable": false
+    },
+    {
+      "name": "temperature",
+      "type": "Edm.Double",
+      "key": false,
+      "searchable": false,
+      "filterable": true,
+      "sortable": true,
+      "facetable": false
+    },
+    {
+      "name": "humidity",
+      "type": "Edm.Double",
+      "key": false,
+      "searchable": false,
+      "filterable": true,
+      "sortable": true,
+      "facetable": false
+    },
+    {
+      "name": "enqueuedTimeUtc",
+      "type": "Edm.DateTimeOffset",
+      "key": false,
+      "searchable": false,
+      "filterable": true,
+      "sortable": true,
+      "facetable": false
+    }
+  ]
+}
